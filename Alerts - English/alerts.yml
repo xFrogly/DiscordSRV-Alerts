@@ -1,0 +1,430 @@
+#===================================#
+#    DiscordSRV Alerts              #
+#                                   #
+#    By xFrogly                     #
+#                                   #
+#    Powered by Atlas Hub Team      #
+#===================================#
+#
+# To enable or disable events, simply add or remove the "#" at the start of the lines.
+# This allows you to switch between different event configurations of the same type.
+#
+# NOTE: You must change emojis with your server's emojis OR if the emojis are not working!
+#       You can suggest any other event to be added in the Atlas Hub Discord Server.
+#       Atlas Hub: https://discord.gg/THNHYkh2aV
+#=========================================================================================
+Alerts:
+
+###############################################
+#       ADVANCED BAN - PUNISHMENT EVENT       #
+###############################################
+  - Trigger: PunishmentEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#2B2D31" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "https://crafthead.net/helm/${#event.punishment.getName()}"
+        Name: "SERVER NAME ・ PUNISHMENT" # Replace this with your server Name
+        Url: ""
+      ThumbnailUrl: "https://media.discordapp.net/attachments/857617564745203762/907221146250924042/aclu_2018_icons_justice_reform_preview.png?width=569&height=569"
+      Fields:
+      - "PLAYER;<:player:> **${#event.punishment.name}** has been `${punishment.getType().getName() == 'Ban' ? 'Banned' : (punishment.getType().getName() == 'Tempban' ? 'Temporarily Banned' : (punishment.getType().getName() == 'Ipban' ? 'IP Banned' : (punishment.getType().getName() == 'Tempipban' ? 'Temporarily IP Banned' : (punishment.getType().getName() == 'Mute' ? 'Muted' : (punishment.getType().getName() == 'Tempmute' ? 'Temporarily Muted' : (punishment.getType().getName() == 'Warn' ? 'Warned' : (punishment.getType().getName() == 'Tempwarn' ? 'Temporarily Warned' : (punishment.getType().getName() == 'Kick' ? 'Kicked' : (punishment.getType().getName() == 'Note' ? 'Noted' : punishment.getType().getName())))))))))}`;false"
+      - "PUNISHER;<a:Staff:1246106073094422640> `${#event.punishment.operator}`;true"
+      - "DURATION;:clock3: `${punishment.getDuration(true)}`;true"
+      - "REASON;<:Question:1246106065859248339> ${punishment.reason};false"
+      ImageUrl: "https://media.discordapp.net/attachments/857617564745203762/945605237505392640/standard.gif" # Replace this with your server's banner link
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+############################################
+#          NUVOTIFER - VOTE EVENT          #
+############################################
+  - Trigger: VotifierEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#2B2D31" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "https://crafthead.net/helm/${#event.getVote().getUsername()}"
+        Name: "SERVER NAME ・ VOTE" # Replace this with your server Name
+        Url: ""
+      ThumbnailUrl: "https://media.discordapp.net/attachments/931400851027787827/981673833981423696/emerald.gif"
+      Fields:
+      - "VOTER;<:player:> `${#event.getVote().getUsername()}`;true"
+      - "REWARDS;<a:small_arrow_right:1246106069630062594> YOUR 1st REWARD\n<a:small_arrow_right:1246106069630062594> YOUR 2nd REWARD\n<a:small_arrow_right:1246106069630062594> YOUR 3rd REWARD;true"
+      - "VOTE SITE;<:green_globe:1246106058725003294> `${#event.getVote().getServiceName()}`;false"
+      - ";;true"
+      - "HOW TO REDEEM;-# Join the server to claim your rewards!\n-# Got to `/warp crates` and use your **Vote Keys** to open vote crate and win exciting prizes.;false"
+      ImageUrl: "https://media.discordapp.net/attachments/857617564745203762/945605237505392640/standard.gif" # Replace this with your server's banner link
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+################################
+#       NIGHT SKIP EVENT       #
+################################
+  - Trigger: TimeSkipEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - '#event.getSkipReason().toString() == "NIGHT_SKIP"'
+    Embed:
+      Color: "#FFEE00" # Change the color based on your server OR whatever you like
+      Title:
+        Text: ":white_sun_small_cloud: Night was skipped, a new day begins to shine!"
+
+#####################################
+#       FLINT AND STEEL EVENT       #
+#####################################
+  - Trigger: BlockIgniteEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - '#event.getCause().toString() == "FLINT_AND_STEEL"'
+    Embed:
+      Color: "#FF0000" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "{name} used lighter (Flint & Steel)"
+      ThumbnailUrl: "https://media.discordapp.net/attachments/1160495032395120641/1217375745748369438/Fire3D.gif?ex=6603cc83&is=65f15783&hm=8ffd4ab74df0eef89679d5bda337ab0959f7d72476ba3295e64ecae547ef558b&=&width=269&height=295"
+      Fields:
+      - "LOCATION;:map: `X: ${#event.getBlock().getLocation().getBlockX()}, Y: ${#event.getBlock().getLocation().getBlockY()}, Z: ${#event.getBlock().getLocation().getBlockZ()}`;true"
+      - "WORLD;:earth_asia: `${#event.getBlock().getWorld().getName()}`;true"
+      Timestamp: true
+
+#########################################
+#       DEFAULT FISH CAUGHT EVENT       #
+#########################################
+  - Trigger: PlayerFishEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - state.name() == 'CAUGHT_FISH'
+    Embed:
+      Color: "#00ccff" # Change the color based on your server OR whatever you like
+      ThumbnailUrl: "https://minecraft-api.vercel.app/images/items/${#event.getCaught().getItemStack().getType().toString().toLowerCase()}.png"
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "{name} did fishing!"
+      Description: ":fishing_pole_and_fish: Caught item: `${#event.getCaught().itemStack().getType().name()}`"
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+##############################################
+#       ESSENTIALS - BALANCE TOP EVENT       #
+##############################################
+  - Trigger: DiscordGuildMessageReceivedEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - 'message.getContentRaw() == "!baltop"'
+      - 'message.getChannel().getId() == "YOUR DISCORD CHANNEL ID"' # Replace this with your discord server's survival chat (Trigger event only in this channel)
+    Embed:
+      Color: "#009600" # Change the color based on your server OR whatever you like
+      ThumbnailUrl: "https://media.discordapp.net/attachments/828614367641731109/1195023679034228807/659fffa18f9c6.png?ex=65b27b87&is=65a00687&hm=28a20ac0b5b45c955006d29dc45a0f3f30ce3e357e9d557fd2b28665f519a60f&=&format=webp&quality=lossless&width=955&height=560"
+      Title:
+         Text: "<:Bundle:1246106044799909892> SERVER NAME ・ BALANCE TOP"
+      Description: "**:first_place: %essentials_baltop_player_0% - :dollar: %essentials_baltop_balance_formatted_0%\n:second_place: %essentials_baltop_player_1% - :dollar: %essentials_baltop_balance_formatted_1%\n:third_place: %essentials_baltop_player_2% - :dollar: %essentials_baltop_balance_formatted_2%**\n:SS_4: %essentials_baltop_player_3% - :dollar: %essentials_baltop_balance_formatted_3%\n:SS_5: %essentials_baltop_player_4% - :dollar: %essentials_baltop_balance_formatted_4%\n:SS_6: %essentials_baltop_player_5% - :dollar: %essentials_baltop_balance_formatted_5%\n:SS_7: %essentials_baltop_player_6% - :dollar: %essentials_baltop_balance_formatted_6%\n:SS_8: %essentials_baltop_player_7% - :dollar: %essentials_baltop_balance_formatted_7%\n:SS_9: %essentials_baltop_player_8% - :dollar: %essentials_baltop_balance_formatted_8%\n:SS_10: %essentials_baltop_player_9% - :dollar: %essentials_baltop_balance_formatted_9%"
+      Footer:
+        Text: "play.minecart.fun" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+#############################################
+#       SUPERBVOTE - TOP VOTERS EVENT       #
+#############################################
+  - Trigger: DiscordGuildMessageReceivedEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - 'message.getContentRaw() == "!votetop"'
+      - 'message.getChannel().getId() == "YOUR DISCORD CHANNEL ID"' # Replace this with your discord server's survival chat (Trigger event only in this channel)
+    Embed:
+      Color: "#00BEBE" # Change the color based on your server OR whatever you like
+      ThumbnailUrl: "https://media.discordapp.net/attachments/828614367641731109/1195023679034228807/659fffa18f9c6.png?ex=65b27b87&is=65a00687&hm=28a20ac0b5b45c955006d29dc45a0f3f30ce3e357e9d557fd2b28665f519a60f&=&format=webp&quality=lossless&width=955&height=560"
+      Title:
+         Text: "<:Diamond:1246106050717945960> SERVER NAME ・ TOP VOTERS"
+      Description: "**:first_place: %superbvote_top_voter_name_1% - %superbvote_top_voter_votes_1%\n:second_place: %superbvote_top_voter_name_2% - %superbvote_top_voter_votes_2%\n:third_place: %superbvote_top_voter_name_3% - %superbvote_top_voter_votes_3%**\n:SS_4: %superbvote_top_voter_name_4% - %superbvote_top_voter_votes_4%\n:SS_5: %superbvote_top_voter_name_5% - %superbvote_top_voter_votes_5%\n:SS_6: %superbvote_top_voter_name_6% - %superbvote_top_voter_votes_6%\n:SS_7: %superbvote_top_voter_name_7% - %superbvote_top_voter_votes_7%\n:SS_8: %superbvote_top_voter_name_8% - %superbvote_top_voter_votes_8%\n:SS_9: %superbvote_top_voter_name_9% - %superbvote_top_voter_votes_9%\n:SS_10: %superbvote_top_voter_name_10% - %superbvote_top_voter_votes_10%"
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+#############################################
+#       MATRIX(ANTI CHEAT/HACK) EVENT       #
+#############################################
+  - Trigger: PlayerViolationEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - violations >= 5 # Only send events for players with 5 or more violations
+    Embed:
+      Color: "#FF0000" # Change the color based on your server OR whatever you like
+      ThumbnailUrl: "https://media.discordapp.net/attachments/1160495032395120641/1218890272549638164/warning-sign-icon-transparent-background-free-png.png?ex=66094f06&is=65f6da06&hm=9a75466b81a55d52cf309208a5932f486d94a0a08cf11dedb182a1241715305c&=&format=webp&quality=lossless&width=359&height=359"
+      Title:
+        Text: ":rotating_light: VIOLATION DETECTED"
+        Url: ""
+      Fields:
+      - "PLAYER;<:player:> `{username}`;true"
+      - "HACK TYPE;:detective: `${hackType.name().toLowerCase()}`;true"
+      - "VIOLATIONS;:exclamation: `${violations}`;true"
+      - "PING;:signal_strength: `${player.ping}ms`;true"
+      - "TPS;:clock3: `{tps}`;true"
+      - "COMPONENTS;:gear: `${component}`;true"
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+##############################################
+#       SPARTAN(ANTI CHEAT/HACK) EVENT       #
+##############################################
+  - Trigger: PlayerViolationEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - violation >= 5 # Only send events for players with 5 or more violations
+    Embed:
+      Color: "#FF0000" # Change the color based on your server OR whatever you like
+      ThumbnailUrl: "https://media.discordapp.net/attachments/1160495032395120641/1218890272549638164/warning-sign-icon-transparent-background-free-png.png?ex=66094f06&is=65f6da06&hm=9a75466b81a55d52cf309208a5932f486d94a0a08cf11dedb182a1241715305c&=&format=webp&quality=lossless&width=359&height=359"
+      Title:
+        Text: ":rotating_light: VIOLATION DETECTED"
+        Url: ""
+      Fields:
+      - "PLAYER;<:player:> `{username}`;true"
+      - "HACK TYPE;:detective: `${hackType.name().toLowerCase()}`;true"
+      - "VIOLATIONS;:exclamation: `${violation}`;true"
+      - "PING;:signal_strength: `${player.ping}ms`;true"
+      - "TPS;:clock3: `{tps}`;true"
+      - "MESSAGE;:gear: `${message}`;false"
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+#####################################
+#       SIGNBOARD PLACE EVENT       #
+#####################################
+  - Trigger: SignChangeEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - '(getLine(0) + getLine(1) + getLine(2) + getLine(3)).trim().length() != 0'
+    Embed:
+      Color: "#2B2D31" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "{username} placed a sign!"
+      ThumbnailUrl: "https://images-ext-1.discordapp.net/external/7NT0G2QxOylbZBWSM-01NsBhikFmDlYJyGVeOgCgc_0/%3Fcb%3D20211226120852/https/static.wikia.nocookie.net/minecraft_gamepedia/images/7/74/Oak_Sign_%25280%2529.png/revision/latest?format=webp&width=269&height=269"
+      Description: "```${#event.getLine(0)}
+      \n${#event.getLine(1)}
+      \n${#event.getLine(2)}
+      \n${#event.getLine(3)}
+      \n```"
+      Fields:
+      - "LOCATION;:map: `X: ${#event.getBlock().getLocation().getBlockX()}, Y: ${#event.getBlock().getLocation().getBlockY()}, Z: ${#event.getBlock().getLocation().getBlockZ()}`;true"
+      - "WORLD;:earth_asia: `${#event.getBlock().getWorld().getName()}`;true"
+      Timestamp: true
+
+####################################
+#       BOOK AND QUILL EVENT       #
+####################################
+  - Trigger: PlayerEditBookEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - 'isSigning() == true'
+    Embed:
+      Color: "#e67e29" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: '${#event.getNewBookMeta().getAuthor()} Completed a Book'
+      ThumbnailUrl: "https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f&20190530235621"
+      Description: "_ _"
+      Fields:
+      - "BOOK NAME;:notebook_with_decorative_cover: ${#event.getNewBookMeta().getTitle()}\n```${T(java.lang.String).join(' ``````',#event.getNewBookMeta().getPages())}```;false"
+      - "LOCATION;:map: `X: ${#player.getLocation().getBlockX()}, Y: ${#player.getLocation().getBlockY()}, Z: ${#player.getLocation().getBlockZ()}`;true"
+      - "WORLD;:earth_asia: `${#player.getWorld().getName()}`;true"
+      Timestamp: true
+
+###############################################
+#       DISCORDSRV - ACCOUNT LINK EVENT       #
+###############################################
+# Account Link
+#=============
+  - Trigger: AccountLinkedEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#58B9FF" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "https://cdn.discordapp.com/emojis/885074419653947412.webp?size=40&quality=lossless"
+        Name: "ACCOUNT LINKED!"
+      ThumbnailUrl: "https://crafthead.net/helm/${#event.getPlayer.getName()}"
+      Fields:
+      - "PLAYER;<:player:> `${#event.getPlayer().getName()}`;true"
+      - "DISCORD ACCOUNT;<:Discord_Icon:1246106053481988196> <@${#discordsrv.accountLinkManager.getDiscordId(player.uniqueId)}>;true"
+      - "PLAYER'S UUID;:identification_card: ||`${#event.getPlayer().uniqueId}`||;false"
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+# Account Unlink
+#===============
+  - Trigger: AccountUnlinkedEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#58B9FF" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "https://cdn.discordapp.com/emojis/885074558707695667.webp?size=40&quality=lossless"
+        Name: "ACCOUNT UNLINKED!"
+      ThumbnailUrl: "https://crafthead.net/helm/${#event.getPlayer.getName()}"
+      Description: "<:player:> `${#event.getPlayer().getName()}` unlinked account from discord"
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+##############################################
+#       AURELIUMSKILL - LEVEL UP EVENT       #
+##############################################
+  - Trigger: SkillLevelUpEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#A3FF00" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "SKILL UPGRADED"
+      ThumbnailUrl: ""
+      Fields:
+      - "PLAYER;<:player:> `${#event.getPlayer().name}`;true"
+      - "LEVEL;:arrow_double_up: `${#event.getLevel()}`;true"
+      - "SKILL;<:Question:1246106065859248339> `${#event.getSkill().getDisplayName(T(java.util.Locale).ENGLISH)}`;true"
+      Timestamp: true
+
+#########################################
+#       SHOPGUI+ - BUY/SELL EVENT       #
+#########################################
+  - Trigger: ShopPostTransactionEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#FFEE00" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "${#event.getResult().getPlayer().getName()} has ${(#event.getResult().getShopAction().name().startsWith('SELL')) ? 'sold' : 'bought'} ${(#event.getResult().getShopItem().getItem().getItemMeta().displayName() == null) ? T(net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer).builder().flattener(T(io.papermc.paper.text.PaperComponents).flattener()).build().serialize(T(net.kyori.adventure.text.Component).translatable(#event.getResult().getShopItem().getItem().translationKey())) : ((T(net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer).plainText().serialize(#event.getResult().getShopItem().getItem().getItemMeta().displayName()).length() > 25) ? T(net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer).plainText().serialize(#event.getResult().getShopItem().getItem().getItemMeta().displayName()).substring(0, 23) + '...' : T(net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer).plainText().serialize(#event.getResult().getShopItem().getItem().getItemMeta().displayName())) + ' (' + T(net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer).builder().flattener(T(io.papermc.paper.text.PaperComponents).flattener()).build().serialize(T(net.kyori.adventure.text.Component).translatable(#event.getResult().getShopItem().getItem().translationKey())) + ')'}"
+      ThumbnailUrl: "https://media.discordapp.net/attachments/1160495032395120641/1195717324955729961/5900239.png?ex=66eb7ac9&is=66ea2949&hm=a69fde56394deae86fbf1eec7487e2a693c216d5273bf94e5e64b384b4c6046b&=&format=webp&quality=lossless&width=460&height=460"
+      Fields:
+      - "AMOUNT;<:Question:1246106065859248339> `x${#event.getResult().getAmount()}`;true"
+      - "PRICE;:dollar: `$${#event.getResult().getPrice()}`;true"
+      - "TRANSACTION;<:Question:1246106065859248339> `${#event.getResult().getResult().name()}`;false"
+      Footer:
+        Text: "play.servername.com" # Replace this with your server IP
+        IconUrl: "https://cdn.discordapp.com/emojis/1161190116279189575.gif?size=96&quality=lossless"
+      Timestamp: true
+
+####################################################
+#       ESSENTIALS - AFK STATUS CHANGE EVENT       #
+####################################################
+  - Trigger: AfkStatusChangeEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#FFEE00" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "https://crafthead.net/helm/${#event.getAffected().getName()}?overlay"
+        Name: '${#event.getAffected().getName() + " is " + (#event.value ? "now" : "no longer") + " AFK"}'
+
+######################################
+#       PRIVATE MESSAGES EVENT       #
+######################################
+  - Trigger: [/msg, /message, /reply, /r, /w, /m, /pm, /emsg, /epm, /tell, /etell, /whisper, /ewhisper]
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#FFEE00" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "PRIVATE MESSAGE"
+      Description: "<:player:> `{username} » ${#args.get(0)}:` ${#args.subList(1, #args.size()).stream().collect(T(java.util.stream.Collectors).joining(' '))}"
+      Timestamp: true
+
+#####################################
+#       GAMEMODE CHANGE EVENT       #
+#####################################
+  - Trigger: [/gamemode, /gm, /gmc, /gms, /gmsp, /gma]
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - '#player.hasPermission("minecraft.command.gamemode")'
+    Embed:
+      Color: "#FFFB00" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "GAMEMODE CHANGED"
+      Description: "<:player:> **{username}** switched their gamemode to **`${#player.getGameMode().toString() == 'CREATIVE' ? 'Creative' : #player.getGameMode().toString() == 'SURVIVAL' ? 'Survival' : #player.getGameMode().toString() == 'ADVENTURE' ? 'Adventure' : 'Spectator'}`**"
+      Timestamp: true
+
+#####################################
+#       CONSOLE COMMAND EVENT       #
+#####################################
+  - Trigger: ServerCommandEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#7FEFBD" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "https://media.discordapp.net/attachments/1222161004067029026/1247922326951956592/cmd.png?ex=6661c9bc&is=6660783c&hm=519830a78ce2938d981ae9254f859df0c9bae8ba118d5ee74f01fa1d6b55df6e&=&format=webp&quality=lossless&width=560&height=560"
+        Name: "CONSOLE USAGE"
+      Fields:
+      - "COMMAND;<:cmd:1247928582353981440> ``${#command}``;true"
+
+#############################################
+#        ESSENTIALS - OP & DEOP EVENT       #
+#############################################
+# OP
+#===
+  - Trigger: /op
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#FF0000" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "{username} gave OP to ${#allArgs}"
+      Timestamp: true
+
+# DEOP
+#=====
+  - Trigger: /deop
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#FF0000" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "{username} removed ${#allArgs} from OP"
+      Timestamp: true
+
+#########################################
+#       ESSENTIALS - HELPOP EVENT       #
+#########################################
+  - Trigger: /helpop
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Conditions:
+      - '#player.hasPermission("essentials.helpop") == true'
+    Embed:
+      Color: "#E67E29" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "HELP OP"
+      Description: "<:player:> **{username}** is looking for help!"
+      Fields:
+      - "MESSAGE;:page_facing_up: `${#allArgs}`;true"
+      Timestamp: true
+
+#######################################
+#       PLAYER KILL/DEATH EVENT       #
+#######################################
+  - Trigger: PlayerDeathEvent
+    Channel: 'YOUR DISCORD CHANNEL ID' # Replace this according to your discord server's specific channel ID/Name
+    Embed:
+      Color: "#FF0000" # Change the color based on your server OR whatever you like
+      Author:
+        ImageUrl: "{embedavatarurl}"
+        Name: "{username} was killed by ${#event.getEntity.getKiller() != null ? #event.getEntity.getKiller.getName() : 'a mob or another cause!'}"
+      ThumbnailUrl: "https://media.discordapp.net/attachments/1160495032395120641/1193503686794678343/rip.png?ex=65acf3ed&is=659a7eed&hm=c45c06311010161af46681fc6a87531087bd099b89f7a4faae216e35fccfe7b1&=&format=webp&quality=lossless&width=460&height=460"
+      Fields:
+      - "INFO;:page_facing_up: ${#event.getDeathMessage()};false"
+      - "LOCATION;:map: `X: ${#event.getEntity().getLocation().getBlockX()}, Y: ${#event.getEntity().getLocation().getBlockY()}, Z: ${#event.getEntity().getLocation().getBlockZ()}`;true"
+      - "WORLD;:earth_asia: `${#event.getEntity().getWorld().getName()}`;true"
+      Timestamp: true
+#########################################
