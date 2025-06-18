@@ -1,6 +1,6 @@
 # DiscordSRV Alerts Configuration
 
-![DiscordSRV Logo](https://i.imgur.com/J0wYVXt.png)
+![](https://lol.scarsz.me/AiKvTS/Logo-filled-stroke.png "DiscordSRV Logo")
 
 A comprehensive collection of DiscordSRV alert configurations for various Minecraft server events, designed to enhance your server's Discord integration.
 
