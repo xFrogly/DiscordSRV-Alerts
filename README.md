@@ -70,13 +70,9 @@ For support or configuration help:
 - Open an issue on this GitHub repository
 - Join our [Discord support server](https://discord.gg/THNHYkh2aV)
 
-## License
-
-This configuration is provided under the MIT License.
-
 ## Credits
 
-Created by [xfrogly](https://github.com/xfrogly)
+Created by [xFrogly](https://github.com/xfrogly)
 
 ---
 
